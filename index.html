@@ -1,19 +1,99 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>脆弱性テスト</title>
+    <title>Vulnerable Web Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .content {
+            margin-bottom: 20px;
+        }
+        input, button {
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <h1>脆弱性テストページ</h1>
-    <p>このページには脆弱性があります。</p>
-    <form action="javascript:void(0);">
-        <label for="userInput">入力:</label>
-        <input type="text" id="userInput" name="userInput">
-        <button type="button" onclick="vulnerableFunction()">送信</button>
-    </form>
+    <div class="container">
+        <h1>Vulnerable Web Application</h1>
 
-    <script src="script.js"></script>
+        <!-- 1. Cross-Site Scripting (XSS) Vulnerability -->
+        <div class="content">
+            <h2>XSS Example</h2>
+            <form action="#" method="GET">
+                <label for="input">Enter something:</label>
+                <input type="text" id="input" name="msg">
+                <button type="submit">Submit</button>
+            </form>
+            <div id="message">
+                <script>
+                    // Vulnerable to XSS
+                    const params = new URLSearchParams(window.location.search);
+                    const message = params.get('msg');
+                    if (message) {
+                        document.getElementById('message').innerHTML = message;
+                    }
+                </script>
+            </div>
+        </div>
+
+        <!-- 2. Local Storage Insecure Data Storage -->
+        <div class="content">
+            <h2>Local Storage Example</h2>
+            <button onclick="saveCredentials('user123', 'password123')">Save Credentials</button>
+            <script>
+                // Insecurely storing user credentials in local storage
+                function saveCredentials(username, password) {
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('password', password); // Storing password as plain text (highly insecure)
+                    alert('Credentials saved to local storage.');
+                }
+            </script>
+        </div>
+
+        <!-- 3. Unsafe JSON Parsing -->
+        <div class="content">
+            <h2>Unsafe JSON Parsing Example</h2>
+            <button onclick="parseUserData('{\"name\": \"John Doe\", \"email\": \"john@example.com\"}')">Parse User Data</button>
+            <script>
+                // Parsing potentially unsafe JSON data
+                function parseUserData(jsonString) {
+                    try {
+                        const userData = JSON.parse(jsonString); // Directly parsing JSON from untrusted source (unsafe)
+                        console.log(`User Data: ${JSON.stringify(userData)}`);
+                    } catch (error) {
+                        console.error('Invalid JSON data provided:', error);
+                    }
+                }
+            </script>
+        </div>
+
+        <!-- 4. Open Redirect Vulnerability -->
+        <div class="content">
+            <h2>Open Redirect Example</h2>
+            <a id="redirectLink" href="#">Click here to go to a safe site</a>
+            <script>
+                // Vulnerable to Open Redirect
+                const safeUrl = "https://example.com";
+                const redirectUrl = new URLSearchParams(window.location.search).get('redirect');
+                if (redirectUrl) {
+                    document.getElementById('redirectLink').href = redirectUrl;
+                } else {
+                    document.getElementById('redirectLink').href = safeUrl;
+                }
+            </script>
+        </div>
+    </div>
 </body>
 </html>

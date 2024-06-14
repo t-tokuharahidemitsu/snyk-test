@@ -1,6 +1,12 @@
-document.getElementById('userForm').addEventListener('submit', function(event) {
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    // No CSRF protection
+    // No SSL/TLS enforcement
+    alert('Login form submitted with username: ' + document.getElementById('username').value);
+});
+
+document.getElementById('commentForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    var username = document.getElementById('username').value;
-    // Display the user input without sanitization
-    document.getElementById('output').innerHTML = "Hello, " + username;
+    var comment = document.getElementById('comment').value;
+    // Vulnerable to XSS
+    document.getElementById('commentsSection').innerHTML += "<p>" + comment + "</p>";
 });

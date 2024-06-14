@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>XSS Vulnerability Test</title>
-    <script src="script.js"></script>
+    <title>Vulnerable Web Application</title>
+    <script src="./script.js"></script>
 </head>
 <body>
-    <h1>XSS Vulnerability Test</h1>
-    <form id="userForm">
-        <label for="username">Enter your name:</label>
+    <h1>Vulnerable Web Application</h1>
+    <form id="loginForm" action="login.php" method="POST">
+        <label for="username">Username:</label>
         <input type="text" id="username" name="username">
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <br>
+        <input type="submit" value="Login">
+    </form>
+    <form id="commentForm">
+        <label for="comment">Leave a comment:</label>
+        <input type="text" id="comment" name="comment">
         <input type="submit" value="Submit">
     </form>
-    <div id="output"></div>
+    <div id="commentsSection"></div>
 </body>
 </html>

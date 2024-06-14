@@ -6,9 +6,9 @@
     <title>脆弱性テスト</title>
 </head>
 <body>
-    <h1 id="userInput">脆弱性テストページ</h1>
+    <h1 id="userInput">password="fasfasfafdas"</h1>
     <p>このページには脆弱性があります。</p>
-    <form action="javascript:void(0);">
+    <form method="GET" action="http://example.jp/article">
         <label for="userInput">入力:</label>
         <input type="text" id="userInput" name="userInput">
         <button type="button" onclick="vulnerableFunction()">送信</button>

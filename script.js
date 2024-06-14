@@ -2,7 +2,7 @@ function vulnerableFunction() {
     var userInput = document.getElementById('userInput').value;
 
     // DOM XSSの脆弱性例
-    document.body.innerHTML = userInput;
+    document.body.innerHTML += "<p>" + userInput + "</p>";
 
     // Cookie Injectionの脆弱性例
     document.cookie = "user=" + userInput + "; path=/";

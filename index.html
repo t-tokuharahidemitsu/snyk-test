@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XSS Vulnerability Test</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>XSS Vulnerability Test</h1>
+    <form id="userForm">
+        <label for="username">Enter your name:</label>
+        <input type="text" id="username" name="username">
+        <input type="submit" value="Submit">
+    </form>
+    <div id="output"></div>
+</body>
+</html>
